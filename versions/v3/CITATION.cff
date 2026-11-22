@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this work, cite it."
+title: "A restoring and divisor-sum proof of Bala's machine-3626 conjecture of 11 September 2026, OEIS A393210, Comments, revision 18: extending Sequence Machine (2026) and Wolfram (2026)"
+authors:
+  - name: "Haobo Ma"
+  - name: "Wenlin Zhang"
+date-released: "2026-11-22"
+version: "3"
+url: "https://mathesis-omega-research.apps.chrono-ai.fun/papers/bala-machine3626-exact-halting-time?version=3"
+license: "CC-BY-4.0"

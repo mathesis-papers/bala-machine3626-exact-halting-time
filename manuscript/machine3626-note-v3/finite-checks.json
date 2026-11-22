@@ -1,0 +1,112 @@
+{
+  "arbitrary_weight": "d^3-d+1, mass powers 1 through 4",
+  "binary_lengths_mean_and_maximum": [
+    1,
+    16
+  ],
+  "comparison_machine_cases_each": 65536,
+  "comparison_machine_transitions": {
+    "3197": 131072,
+    "3589": 196606
+  },
+  "context_cases": 2250,
+  "context_zero_block_lengths": [
+    0,
+    9
+  ],
+  "corrected_support_example": {
+    "argument": 4,
+    "incorrect_value": 4,
+    "mass": 2
+  },
+  "coverage": "Exact finite comparisons; all-input statements have written proofs in note.tex.",
+  "cubic_weighted_identity_range": [
+    1,
+    4096
+  ],
+  "divisor_identity_range": [
+    1,
+    4096
+  ],
+  "divisor_power_ratio_exponents": [
+    0,
+    4
+  ],
+  "divisor_power_ratio_primes": [
+    2,
+    3,
+    5,
+    7
+  ],
+  "exact_time_prefix_sums": [
+    1,
+    4096
+  ],
+  "higher_and_right_context_lengths": [
+    0,
+    3
+  ],
+  "indexed_parity_identity_range": [
+    1,
+    4096
+  ],
+  "input_range": [
+    1,
+    65536
+  ],
+  "literal_machine_cases": 65536,
+  "literal_transitions": 2162688,
+  "machine": 3626,
+  "mixed_powers": {
+    "mass": [
+      1,
+      4
+    ],
+    "totient": [
+      0,
+      4
+    ]
+  },
+  "oeis_bfile_comparisons": 1000,
+  "oeis_bfile_sha256": "fbc20f8fff2a22cf3829cf1ce987555de81e840e81b24ee464f72b3079d74062",
+  "oeis_prefix_comparisons": 0,
+  "oeis_prefix_sha256": null,
+  "palindrome_and_partial_sum_exponents": [
+    1,
+    12
+  ],
+  "quadratic_generating_coefficients_and_digit_sums": [
+    1,
+    4096
+  ],
+  "reference_prefix_comparisons": {
+    "A000695": 52,
+    "A006095": 25,
+    "A010684": 81,
+    "A037227": 102,
+    "A038712": 98,
+    "A069517": 105,
+    "A080277": 58,
+    "A276391": 102,
+    "A296306": 96,
+    "A318935": 80,
+    "A393210": 80
+  },
+  "reference_prefix_sha256": "8428b3a6eedfb98df6ed7e0e9303179569456212a523dc107729a2d1753757c8",
+  "signed_transform_mass_powers": [
+    1,
+    4
+  ],
+  "status": "all assertions passed",
+  "tape_restoration": true,
+  "timing_distribution_endpoints": [
+    1,
+    2,
+    3,
+    31,
+    255,
+    1000,
+    4096,
+    65536
+  ]
+}

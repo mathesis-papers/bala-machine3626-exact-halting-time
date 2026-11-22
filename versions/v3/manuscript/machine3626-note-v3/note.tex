@@ -1,0 +1,551 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\val}{\nu_2}
+\title{A restoring and divisor-sum proof of Bala's\newline
+  machine-3626 conjecture of 11 September 2026,\newline
+  OEIS A393210, Comments, revision 18:\newline
+  extending Sequence Machine (2026) and Wolfram (2026)}
+\author{Haobo Ma\\\small ChronoAI Pte Ltd, Singapore
+  \and Wenlin Zhang\\\small National University of Singapore\\
+  \small ChronoAI Pte Ltd, Singapore}
+\date{4 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Extending the pointwise formula recorded by Sequence Machine (18 April 2026)
+and Wolfram's (2026) worst-case analysis, we prove Peter Bala's conjecture
+dated 11 September 2026 in the Comments
+of OEIS A393210, revision 18, also stated in A069517, Formula, revision 31.
+For every positive integer $n$, the one-sided Turing machine 3626 halts after
+$4\cdot2^{\val(n)}-3$ transitions, including its final boundary crossing.
+A restoring block computation gives the recurrence $T_{k+1}=2T_k+3$;
+the signed M\"obius--totient divisor sum in the conjecture has the same value.
+The proof also gives exact timing statistics and the formulas for the two
+comparison machines in the same comment. A general weighted divisor identity
+gives the companion formulas in A069517 and A296306, including a correction
+to the latter entry's stated value on powers of two.
+The companion ordinary generating series recover Stephan's (2003) family.
+\end{abstract}
+
+\section{The machine and the conjecture}
+The halting-time sequence A393210 was entered by Sean A. Irvine in February
+2026. Bala's September comment proposes the divisor formula below
+\cite{halting,mobius}. Wolfram's earlier analysis of identity-computing
+machines displays $2^{\ell+1}-3$ in its closed-form worst-case table,
+given for even lengths with analogous odd-length forms. Its named growth
+class and identity-runtime profiles identify machine 3626 with this case
+\cite{wolfram}.
+The restoring argument below gives the time for each individual input and
+identifies it with Bala's signed divisor sum.
+The arithmetic ingredient is already explicit in A069517: Antti Karttunen's
+corrected support formula of 19 November 2017 and Amiram Eldar's prime-power formula of
+29 August 2023 describe its values.
+We give a direct proof of that description and connect it to the machine's
+complete computation.
+
+Sequence Machine's archived A393210 record of 18 April 2026 already gives
+the zero-based formula $a(k)=2\operatorname{xor}(k,k+1)-1$, with comparisons
+against 10,000 terms \cite{sequence-machine}. For $n=k+1$, subtraction
+flips the trailing $\val(n)$ zeros and the first one, so
+$\operatorname{xor}(n-1,n)=2^{\val(n)+1}-1$. This recorded expression is
+therefore the same pointwise closed form. It is a prior answer supported
+by finite comparisons; the restoring trace and the divisor-sum equality
+are proved below.
+
+Number the tape cells $0,1,2,\ldots$, increasing to the left. Initially the
+head is at cell $0$ in state $A$; cell $j$ holds the coefficient of $2^j$
+in $n$. All remaining cells are zero. A move right from cell $0$ terminates
+the computation and counts as one transition. There is no separate halt
+state. The rules are
+\[
+\begin{array}{c|cc}
+ &0&1\\\hline
+A&(0,L,A)&(1,R,B)\\
+B&(1,L,A)&(0,R,B)
+\end{array}
+\]
+where each triple specifies the written symbol, direction and new state.
+The tape is infinite to the left; there is no tape-length restriction.
+Write $H(n)$ for the first boundary-crossing time, and put
+\[
+ m(n)=\sum_{e\mid n}(-1)^{e+1}\mu(e),
+ \qquad C(n)=\sum_{d\mid n}m(d)^2\varphi(d).
+\]
+Here $\mu$ is the M\"obius function and $\varphi$ is Euler's totient.
+Bala's conjecture is $H(n)=C(n)$ for every $n\geq1$.
+
+\begin{theorem}\label{thm:main}
+For every positive integer $n$, machine 3626 terminates, leaves every tape
+symbol unchanged, and satisfies
+\[
+ H(n)=C(n)=4\cdot2^{\val(n)}-3.
+\]
+\end{theorem}
+
+\section{A restoring computation}
+Let $u_k=0^k1w$, where $w$ is an arbitrary finite string of higher bits,
+with implicit zeros beyond it. Strings are read from the head toward the
+left. Write $(S,u\mid r)$ for a configuration in which the scanned symbol
+is the first symbol of $u$, the state is $S$, and $r$ lists the cells to
+the right, nearest first. For a string $u$ define
+\[
+ E(u,r)=
+ \begin{cases}
+ \text{termination},&r=\varnothing,\\
+ (B,bu\mid r'),&r=br'.
+ \end{cases}
+\]
+This is the endpoint of moving right past the starting cell while restoring
+that cell and the cells to its left.
+
+\begin{lemma}\label{lem:block}
+Starting in $(A,u_k\mid r)$, the machine first moves right past the starting
+cell after exactly $T_k$ transitions, reaches $E(u_k,r)$, and restores every
+tape symbol. The time is independent of $w$ and $r$, with
+\[
+ T_0=1,\qquad T_{k+1}=2T_k+3,\qquad T_k=4\cdot2^k-3.
+\]
+\end{lemma}
+\begin{proof}
+For $k=0$, the scanned symbol is $1$. Rule $A1$ moves right without changing
+it, giving the assertion in one transition.
+
+Assume the assertion for $k$, and write $u=u_k$. For the block $0u$, the
+entire computation is
+\[
+\begin{aligned}
+(A,0u\mid r)&\xrightarrow{1}(A,u\mid0r)
+\xrightarrow{T_k}(B,0u\mid r)\\
+&\xrightarrow{1}(A,u\mid1r)
+\xrightarrow{T_k}(B,1u\mid r)
+\xrightarrow{1}E(0u,r).
+\end{aligned}
+\]
+The one-step arrows use $A0$, $B0$, and $B1$, respectively. Each long arrow
+is the induction hypothesis with the indicated additional right-hand cell.
+That cell prevents termination during either subcomputation. Each
+subcomputation restores $u$ and first returns right only to the extra cell.
+The extra cell changes from $0$ to $1$ and back to $0$. Thus all symbols are
+restored, and only the last arrow moves right past the original starting
+cell. This proves both the first-crossing property and the recurrence.
+Finally $T_{k+1}+3=2(T_k+3)$ and $T_0+3=4$, giving the closed form.
+\end{proof}
+
+For $n>0$, its least-significant-bit-first expansion is uniquely
+$0^{\val(n)}1w$. Apply Lemma~\ref{lem:block} with $r=\varnothing$.
+This proves termination, restoration, and the asserted value of $H(n)$.
+The excluded input $n=0$ consists entirely of zeros: rule $A0$ moves left
+forever, so this input does not terminate.
+
+\begin{corollary}[The comparison machines]\label{cor:machines}
+Under the same initialization and boundary convention, the two other
+identity-computing machines in Bala's A393210 comment have exact times
+\[
+ H_{3589}(n)=2\val(n)+1,\qquad
+ H_{3197}(n)=2-(-1)^n\quad(n\geq1).
+\]
+Both restore the tape. These are A037227 and A010684, respectively
+\cite{comparisons}.
+\end{corollary}
+\begin{proof}
+The rule numbers use four base-eight digits, in the order $A1,A0,B1,B0$.
+A digit $b$ specifies state $1+\lfloor b/4\rfloor$, symbol
+$\lfloor b/2\rfloor\bmod2$, and direction right exactly when $b$ is odd
+\cite{decoder}. For 3589 the rules are
+\[
+ A0\mapsto(0,L,A),\quad A1\mapsto(1,R,B),\quad
+ B0\mapsto(0,R,B),\quad B1\mapsto(0,L,A).
+\]
+On $0^v1w$, there are $v$ left moves across zeros, one right move at the
+first one, then $v$ right moves across the unchanged zeros. Rule $B1$
+is never used. For 3197, $A0\mapsto(0,R,A)$ and
+$A1\mapsto(1,L,B)$; either $B$ rule preserves its symbol and moves right.
+An even input therefore exits in one move; an odd input makes one left
+and two right moves. No tape symbol changes in either computation.
+\end{proof}
+
+\begin{corollary}[Timing distribution]\label{cor:timing}
+For $N\geq1$, the number of inputs $n\leq N$ with
+$H(n)=4\cdot2^k-3$ is
+\[
+ \left\lfloor\frac{N}{2^k}\right\rfloor-
+ \left\lfloor\frac{N}{2^{k+1}}\right\rfloor\quad(k\geq0).
+\]
+Furthermore,
+\begin{equation}\label{eq:time-sum}
+ \sum_{n=1}^N H(n)=N+4\sum_{j\geq1}2^{j-1}
+                    \left\lfloor\frac{N}{2^j}\right\rfloor .
+\end{equation}
+Among the $2^{\ell-1}$ inputs of binary length $\ell\geq1$, the mean
+time is $2\ell-1$ and the maximum is $2^{\ell+1}-3$.
+The maximum reproduces Wolfram's earlier closed form \cite{wolfram}; the
+distribution and mean follow from the individual-input formula above.
+\end{corollary}
+\begin{proof}
+Count multiples of $2^k$ that are not multiples of $2^{k+1}$.
+The identity $2^v=1+\sum_{j=1}^v2^{j-1}$ gives
+\eqref{eq:time-sum}. For $N=2^h-1$ this is
+$(2h-3)2^h+3$, also valid at $h=0$. Subtract the expressions for
+$h=\ell$ and $h=\ell-1$ to obtain the mean. The maximum occurs at the
+unique length-$\ell$ input $n=2^{\ell-1}$.
+\end{proof}
+
+\section{The divisor sum and its companions}
+Write $n=2^vq$ with $q$ odd. In the sum defining $m(n)$, only divisors
+$e$ with at most one factor of $2$ contribute. If $v=0$, their contribution
+is $\sum_{e\mid q}\mu(e)$. If $v\geq1$, pair each odd divisor $e$ with
+$2e$: since $\mu(2e)=-\mu(e)$, each pair contributes $2\mu(e)$.
+For $q>1$, the sum $\sum_{e\mid q}\mu(e)$ is zero by expansion of
+$\prod_{p\mid q}(1-1)$; for $q=1$ it is one. Consequently
+\begin{equation}\label{eq:support}
+m(1)=1,\qquad m(2^j)=2\ (j\geq1),\qquad m(n)=0
+\ \text{otherwise}.
+\end{equation}
+This also proves multiplicativity: two coprime arguments cannot both be
+even; an odd argument greater than one forces both sides of the
+multiplicativity identity to be zero. Thus
+\[
+C(n)=1+4\sum_{j=1}^{v}\varphi(2^j)
+=1+4\sum_{j=1}^{v}2^{j-1}
+=4\cdot2^v-3,
+\]
+including $v=0$ through the empty-sum convention. This completes the proof
+of Theorem~\ref{thm:main}.
+
+The other formulas in Bala's A069517 block follow from the same support
+calculation, without further machine analysis.
+\begin{corollary}[Arbitrary divisor weights]\label{cor:weights}
+For $n\geq1$, $v=\val(n)$, every integer $r\geq1$, and every function
+$w$ on the positive integers with complex values,
+\begin{equation}\label{eq:weights}
+ \sum_{d\mid n}m(d)^r w(d)=w(1)+2^r\sum_{j=1}^v w(2^j).
+\end{equation}
+\end{corollary}
+\begin{proof}
+Only $d=1$ and the positive powers of two contribute, by
+\eqref{eq:support}. Their values are $1$ and $2$, respectively.
+\end{proof}
+
+\begin{corollary}\label{cor:mixed}
+For integers $r\geq1$, $s\geq0$ and $n\geq1$, with $v=\val(n)$,
+\[
+\sum_{d\mid n}m(d)^r\varphi(d)^s=
+\begin{cases}
+1+2^rv,&s=0,\\[2pt]
+1+2^r\dfrac{2^{sv}-1}{2^s-1},&s>0.
+\end{cases}
+\]
+For every integer $k\geq1$,
+$\sum_{d\mid n}(2m(d)^k-m(d)^{k+1})=1$.
+\end{corollary}
+\begin{proof}
+Equation~\eqref{eq:support} reduces the first sum to
+$1+2^r\sum_{j=1}^v2^{s(j-1)}$. Sum this geometric progression, or count its
+$v$ terms when $s=0$. For the second sum, a divisor with $m(d)=0$ or $2$
+contributes zero, and $d=1$ contributes one.
+\end{proof}
+In particular, the pairs $(r,s)=(1,1),(1,2),(2,2)$ give
+\[
+2^{v+1}-1,\qquad \frac{2\cdot4^v+1}{3},\qquad
+\frac{4^{v+1}-1}{3},
+\]
+the entries A038712, A276391 and A296306, respectively
+\cite{companions,ratio}. These are arithmetic identities attached to
+Bala's conjecture, rather than further halting-time conjectures.
+
+There is a useful distinction between the two roles of the power of two
+in these formulas. The value is $m(2^j)=2$ for every $j\geq1$, not
+$2^j$. The latter expression appears in Bala's 11 September 2026 comment
+in A296306 and fails already at $j=2$, since $m(4)=2\ne4$.
+The entry's displayed divisor identities nevertheless hold, with the
+constant value $2$ used above.
+
+\begin{corollary}[Signed transforms and indexing]\label{cor:signed}
+For every integer $r\geq1$,
+\begin{equation}\label{eq:signed}
+ \sum_{d\mid n}m(d)^r\mu(d)=1-2^r\mathbf{1}_{2\mid n}.
+\end{equation}
+Using $w(d)=(-1)^{d+1}\mu(d)$ instead gives
+\[
+ \sum_{d\mid n}(-1)^{d+1}m(d)^r\mu(d)
+ =1+2^r\mathbf{1}_{2\mid n}.
+\]
+This is the general formula in Bala's A010684 block of 22 September 2026.
+Its case $r=1$, and also the expression
+\[
+ (-1)^{n+1}\sum_{d\mid n}m(d)^2\mu(d),
+\]
+equal $1$ for odd $n$ and $3$ for even $n$.
+That block explicitly uses offset 1: in the entry's usual offset-0
+notation these expressions are A010684$(n-1)$, whereas
+$H_{3197}(n)$ is A010684$(n)$ \cite{comparisons}.
+\end{corollary}
+\begin{proof}
+Substitute $w(d)=\mu(d)$ and $w(d)=(-1)^{d+1}\mu(d)$ into
+\eqref{eq:weights}. Since $\mu(2)=-1$ and $\mu(2^j)=0$ for $j>1$,
+only $j=1$ can contribute. The stated cases follow by parity.
+\end{proof}
+
+\begin{corollary}[A038712 and A276391]\label{cor:companions}
+Write $B(n)=(2\cdot4^v+1)/3$ and $D(n)=2^{v+1}-1$.
+Then $B(2n)=4B(n)-1$,
+$B(2n-1)=1$, $D(2n)=2D(n)+1$, and $D(2n-1)=1$.
+Their generating functions, binary digit sums and summatory identities
+are given by the formulas below.
+\end{corollary}
+\begin{proof}
+The recurrences follow from $\val(2n)=\val(n)+1$ and
+$\val(2n-1)=0$. Also $D(n)=2(n\mathbin{\&}(-n))-1$, where the bitwise
+expression denotes the largest power of two dividing $n$.
+These are recorded formulas for A276391 and A038712
+\cite{companions}. If $G(x)=\sum_{n\geq1}B(n)x^n$, separating odd
+and even indices gives, for $|x|<1$,
+\[
+ G(x)=4G(x^2)+\frac{x}{1+x}
+ =\sum_{j\geq0}\frac{4^j x^{2^j}}{1+x^{2^j}}.
+\]
+The series converges absolutely; iteration is justified since
+$4^hG(x^{2^h})\to0$. This gives the generating-function identity
+recorded by Ilya Gutkovskiy on 14 December 2020 in A276391. For the same $B$, let
+$U(n)=\sum_{j\geq0}\epsilon_j4^j$ when $n=\sum_j\epsilon_j2^j$.
+Subtracting the base-four digit strings of $n$ and $n-1$ yields
+\[
+ U(n)-U(n-1)=4^v-\sum_{j=0}^{v-1}4^j=B(n).
+\]
+Thus $\sum_{j=1}^n B(j)=U(n)$, the A000695 partial-sum relation
+recorded in A276391 \cite{companions,moser}.
+Also $H(n)=2D(n)-1$, so \eqref{eq:time-sum} gives the exact
+summatory function of $D$ (A080277):
+\[
+ \sum_{n=1}^N D(n)=N+2\sum_{j\geq1}2^{j-1}\lfloor N/2^j\rfloor.
+\]
+Its value at $N=2^h-1$ is $(h-1)2^h+1$, and in general it is
+$N\log_2N+O(N)$. Indeed, replace each floor by its argument; the
+total error is bounded by $2\sum_{j\leq\log_2N}2^{j-1}=O(N)$.
+This asymptotic appears as a conjecture in Brockhaus's 2003 comment in
+A080277, whose 2013 update points to Bannister et al.\ for its proof
+\cite{partial-sums}. The same exact sum gives
+$S(N)=N+2S(\lfloor N/2\rfloor)$ and, for the binary digits of $N$,
+\[
+ S(N):=\sum_{n=1}^N D(n)=\sum_{i\geq0}\epsilon_i(i+1)2^i.
+\]
+This binary-digit formula also appears in the proof of Lemma~9 of
+Bannister et al.\ \cite{partial-sums}.
+Indeed, each digit's contribution to the floor sum occurs $i+1$ times.
+The weights $(i+1)2^i$ are superincreasing, since the sum of the earlier
+weights is $(i-1)2^i+1$ for $i\geq1$.
+Their subset sums are therefore listed increasingly by $S(0),S(1),\ldots$;
+this proves Bala's product identity of 2 February 2013 in A080277:
+\[
+ \prod_{i\geq0}(1+x^{(i+1)2^i})=\sum_{N\geq0}x^{S(N)}.
+\]
+\end{proof}
+
+\begin{corollary}[Power sums and their series]\label{cor:series}
+For real $a\geq0$, set $F_a(n)=\sum_{j=0}^{\val(n)}2^{aj}$.
+Then
+\begin{align*}
+ \sum_{n\geq1}F_a(n)x^n
+ &=\sum_{j\geq0}\frac{2^{aj}x^{2^j}}{1-x^{2^j}}
+ &&(|x|<1),\\
+ \sum_{n\geq1}\frac{F_a(n)}{n^s}
+ &=\frac{\zeta(s)}{1-2^{a-s}}
+ &&(\Re s>\max\{1,a\}).
+\end{align*}
+The cases $a=1,2,3$ are A038712, A296306, A318935, respectively.
+Also $F_0(n)=\val(n)+1$
+and $\sum_{d\mid n}m(d)=2F_0(n)-1=H_{3589}(n)$.
+\end{corollary}
+\begin{proof}
+Write $F_a(n)=\sum_{2^j\mid n}2^{aj}$, interchange absolutely convergent
+sums, and sum over positive multiples of $2^j$. For the last equality
+use \eqref{eq:weights} with $r=1,w=1$.
+\end{proof}
+For positive integer $c$, the ordinary generating function with $c=2^a$
+is Stephan's theorem of 2003, section~2, equation~(2.1), proved there by
+the same coefficient-divisibility argument \cite{stephan}.
+The formulation above also permits every real $a\geq0$.
+
+\begin{corollary}[The four statements in A296306]\label{cor:ratio}
+The divisor-power ratio in Conjecture~1 is an integer for every
+nonnegative integer exponent. The value set, palindromic prefixes and
+prefix sums in Conjectures~2--4 have the stated forms below.
+The divisor factorization also holds at every prime and real exponent
+$s\geq0$.
+\end{corollary}
+\begin{proof}
+More generally, let $p$ be any prime, write $n=p^vq$ with $p\nmid q$,
+and take any real $s\geq0$. Every divisor is uniquely $p^je$ with
+$0\leq j\leq v$ and $e\mid q$. Hence
+\begin{equation}\label{eq:ratio}
+\frac{\sum_{d\mid n}d^s}{\sum_{e\mid n,\ p\nmid e}e^s}
+=\sum_{j=0}^vp^{js}.
+\end{equation}
+The denominator is positive. Taking $p=2$ and integer $s\geq0$ makes
+the right-hand side an integer, proving Conjecture~1 of A296306;
+the factorization remains valid for every real $s\geq0$. For $s=2$, write
+$R(n)=(4^{v+1}-1)/3$. As $v$ ranges over the nonnegative integers, this
+gives exactly $(4^h-1)/3$, $h\geq1$, proving Conjecture~2.
+For $1\leq j<2^h$, factoring out $2^{\val(j)}$ shows
+$\val(2^h-j)=\val(j)$, so $R(2^h-j)=R(j)$; this proves Conjecture~3.
+There are $2^{h-k-1}$ integers $1\leq j<2^h$ with $\val(j)=k$.
+Therefore, for $h\geq1$,
+\[
+\sum_{j=1}^{2^h-1}R(j)
+=\frac13\sum_{k=0}^{h-1}2^{h-k-1}(4^{k+1}-1)
+=\frac{(2^h-1)(2^{h+1}-1)}3,
+\]
+which is A006095$(h+1)$ and proves Conjecture~4 \cite{gaussian}.
+The entry was created by Ivan N. Ianakiev on 10 December 2017.
+The existing record credits David Radcliffe's closed formula
+(11 December 2017) and M. F. Hasler's explanations of Conjectures~1 and~3
+(31 January 2020) \cite{ratio}; the deductions here use those same
+elementary factorizations.
+\end{proof}
+
+\begin{corollary}[The cubic companion A318935]\label{cor:cubic}
+For $p=2$, $s=3$, \eqref{eq:ratio} is
+\[
+ Q(n)=\frac{\sum_{d\mid n}d^3}{\sum_{e\mid n,\ e\text{ odd}}e^3}
+     =\frac{8^{v+1}-1}{7}.
+\]
+This is A318935, introduced by N. J. A. Sloane on 14 September 2018
+as the sum of cubes of the powers of two dividing $n$; Chai Wah Wu gave
+its valuation formula that day. Amiram Eldar recorded the equivalent
+cubic divisor ratio on 29 October 2026 \cite{cubic}.
+The underlying cubic power sum already occurs as $T$ on page~102 of
+Lamont's 1982 paper on Cayley integers \cite{lamont}.
+It is also a direct weighted consequence:
+\[
+ Q(n)=1+4\sum_{\substack{d\mid n\\d>1}}m(d)\varphi(d)^3.
+\]
+\end{corollary}
+\begin{proof}
+The first equality is \eqref{eq:ratio}. In the weighted equality, the
+sum is $2\sum_{j=0}^{v-1}8^j$. The same divisor
+factorization gives the formula at every prime in \eqref{eq:ratio}.
+\end{proof}
+
+\section{Coverage and mathematical verification}
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.39\linewidth}>{\raggedright\arraybackslash}p{0.55\linewidth}@{}}
+\toprule
+Posing item & Coverage\\\midrule
+A393210, Comments rev.~18; A069517, Formula rev.~31 & Proved: one conjecture with two locators; Theorem~\ref{thm:main}, all $n>0$.\\
+Sequence Machine, A393210 (18 Apr 2026) & Prior pointwise answer cited; all-input restoring and divisor-sum proof in Theorem~\ref{thm:main}.\\
+A393210, identity-function and comparison comments & Reproved; prior results Wolfram (2026): restoration, Lemma~\ref{lem:block}; both other machines, Corollary~\ref{cor:machines}.\\
+Wolfram (2026), worst-case timing of machine 3626 & Reproved; prior closed form Wolfram (2026): $\max H=2^{\ell+1}-3$, Corollary~\ref{cor:timing}.\\
+A069517, four companion formulas (11 Sep 2026) & Proved: Corollaries~\ref{cor:weights}--\ref{cor:mixed}; support formulas of 2017 and 2023 cited.\\
+A296306, comment $m(2^j)=2^j$ & Refuted-and-corrected: $m(4)=2$; the correct value is $2$ for every $j>0$.\\
+A296306, Conjectures 1 and 3 & Reproved; prior proof Hasler (2020): Corollary~\ref{cor:ratio}.\\
+A296306, Conjectures 2 and 4 & Proved from Radcliffe's prior formula (2017): Corollary~\ref{cor:ratio}.\\
+A010684, Bala block (22 Sep 2026) & Proved with its declared reindexing: Corollary~\ref{cor:signed}.\\
+A038712/A276391, valuation, recurrence, series and A000695 links & Proved: Corollaries~\ref{cor:companions}--\ref{cor:series}.\\
+Divisor-power ordinary generating series & Reproved for integer $c=2^a$; prior proof Stephan (2003), eq.~(2.1); real-$a$ formulation in Corollary~\ref{cor:series}.\\
+A080277, Bala's two divisor formulas; floor sum, binary product and asymptotic & Proved; asymptotic and binary-digit formula reproved, prior proof Bannister et al.\ (2013): Corollary~\ref{cor:companions}.\\
+A318935, cubic ratio (29 Oct 2026) & Proved; earlier cubic sum Lamont (1982), valuation Wu (2018), ratio Eldar (2026): Corollary~\ref{cor:cubic}.\\
+A000695, Rascoe's tree conjecture (2022); other combinatorial models; A038712 machine 924 & Not covered; different objects or transition rules.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The pinned \href{https://github.com/the-omega-institute/trureturing/blob/3d88df0f99ef3c8bfb034fa52be669b13746a844/D5/S0/Computability/BinaryMachine/Machine3626.lean}{\texttt{Machine3626.lean}}
+contains these declarations in the namespace
+\begin{center}
+\small\texttt{D5.S0.Computability.BinaryMachine.Machine3626}.
+\end{center}
+\begin{itemize}
+\item \texttt{block\_first\_crossing}: for every $k$ and arbitrary finite higher
+bits, a trace of length $4\cdot2^k-3$ from $0^k1w$ at the actual boundary
+to its first crossing; the right-context list is empty.
+\item \texttt{positive\_input\_first\_crossing}: for every $n>0$, existence
+of $k,w$ with $n$'s binary list equal to $0^k1w$, and the corresponding
+trace. The zero-block length is the $k=\val(n)$ identified above.
+\item \texttt{result}: for every $n>0$, existence of a terminating trace
+whose natural length, cast to the integers, equals the double signed
+M\"obius--totient divisor sum in Theorem~\ref{thm:main}.
+\end{itemize}
+The deterministic step rules and the trace constructors allow no continuation
+after crossing. These three declarations state trace and timing properties;
+the endpoint \texttt{none} does not itself contain a final tape.
+Lemma~\ref{lem:block} supplies the written restoration argument for all
+contexts. Corollaries~\ref{cor:machines}--\ref{cor:cubic}, including the
+comparison machines and arithmetic generalizations, have written proofs here.
+The finite checks in \texttt{verify.py} compare all three literal transition
+tables on $1\leq n\leq65536$, evaluate divisor identities on
+$1\leq n\leq4096$, test restoring blocks with short contexts, and check the
+timing statistics, arithmetic recurrences and indexing identities.
+These finite comparisons supplement the all-input proofs.
+
+\begin{thebibliography}{14}
+\bibitem{halting} S. A. Irvine, OEIS A393210, entered 5 February 2026;
+P. Bala, conjecture comment, 11 September 2026, Comments revision 18.
+\url{https://oeis.org/A393210}.
+\bibitem{mobius} B. Cloitre, OEIS A069517, entered 16 April 2002;
+A. Karttunen, corrected support formula, 19 November 2017;
+A. Eldar, prime-power formula, 29 August 2023; P. Bala, formulas,
+11 September 2026, Formula revision 31. \url{https://oeis.org/A069517}.
+\bibitem{wolfram} S. Wolfram, \emph{P vs. NP and the Difficulty of
+Computation: A Ruliological Approach}, 30 January 2026, sections
+``The Basic Setup,'' ``Runtimes in $s=2$, $k=2$ Machines''
+(closed-form runtime table), and ``Computing the Same Functions at
+Different Speeds'' (machines 3197, 3589, 3626).
+\href{https://writings.stephenwolfram.com/2026/01/p-vs-np-and-the-difficulty-of-computation-a-ruliological-approach/}{Stephen Wolfram Writings}.
+\bibitem{companions} The OEIS Foundation Inc., entries
+\href{https://oeis.org/A038712}{A038712} and
+\href{https://oeis.org/A276391}{A276391}, formulas in terms of the
+exponent of $2$ dividing the argument.
+\bibitem{ratio} I. N. Ianakiev, OEIS A296306, 10 December 2017;
+D. Radcliffe, closed formula, 11 December 2017; M. F. Hasler,
+comments, 31 January 2020. \url{https://oeis.org/A296306}.
+\bibitem{gaussian} N. J. A. Sloane, OEIS A006095, formula
+$a(h)=(2^h-1)(2^{h-1}-1)/3$. \url{https://oeis.org/A006095}.
+\bibitem{comparisons} The OEIS Foundation Inc.,
+\href{https://oeis.org/A037227}{A037227} (machine 3589) and
+\href{https://oeis.org/A010684}{A010684} (machine 3197);
+P. Bala, arithmetic formulas in A010684, 22 September 2026.
+\bibitem{decoder} Wolfram Institute, \emph{TuringMachine},
+\texttt{from\_number}; one-sided function
+\texttt{OneSidedTuringMachine}\allowbreak\texttt{FunctionNative},
+revision \texttt{d23b7bcb741c711ea7b87}\allowbreak\texttt{a76391da1ac150c3bba}.
+\href{https://github.com/WolframInstitute/TuringMachine/blob/d23b7bcb741c711ea7b87a76391da1ac150c3bba/TuringMachine/Libs/ndtm_search/src/models.rs}{Rule-number decoder};
+\href{https://github.com/WolframInstitute/TuringMachine/blob/d23b7bcb741c711ea7b87a76391da1ac150c3bba/TuringMachine/Kernel/Functions.wl}{one-sided initialization and counting}.
+\bibitem{moser} The OEIS Foundation Inc., A000695, binary-to-base-four
+digit interpretation. \url{https://oeis.org/A000695}.
+\bibitem{cubic} N. J. A. Sloane, OEIS A318935, 14 September 2018;
+C. W. Wu, valuation formula, same day;
+A. Eldar, cubic divisor-ratio formula, 29 October 2026.
+\url{https://oeis.org/A318935}.
+\bibitem{partial-sums} The OEIS Foundation Inc., A080277,
+formulas and the 2013 pointer to the proof of its asymptotic.
+\url{https://oeis.org/A080277}. See also M. J. Bannister,
+Z. Cheng, W. E. Devanny, and D. Eppstein,
+\emph{Superpatterns and universal point sets},
+\emph{J. Graph Algorithms Appl.} 18(2) (2014), 177--209,
+section~2.3, Lemma~9, p.~182.
+\href{https://doi.org/10.7155/jgaa.00318}{doi:10.7155/jgaa.00318};
+arXiv:1308.0403, first posted 2 August 2013.
+\url{https://arxiv.org/abs/1308.0403}.
+\bibitem{stephan} R. Stephan, \emph{Divide-and-conquer generating functions.
+Part I. Elementary sequences}, 2 July 2003, section~2, equation~(2.1),
+pp.~3--4. \url{https://arxiv.org/abs/math/0307027}.
+\bibitem{lamont} P. J. C. Lamont, \emph{The number of Cayley integers of
+given norm}, \emph{Proc. Edinburgh Math. Soc.} 25(1) (1982), 101--103,
+p.~102, the quantity $T$.
+\href{https://doi.org/10.1017/S001309150000420X}{doi:10.1017/S001309150000420X}.
+\bibitem{sequence-machine} Sequence Machine, A393210 formula record,
+18 April 2026, revision \texttt{adf7a8346dc7}.
+\href{https://github.com/jonmaiga/sequence-machine-data/blob/adf7a8346dc74ed9fec9462652611d740e33ec0b/oeis/A393/A393210.programs.json}{Archived formula record};
+\href{https://sequencedb.net/s/A393210}{current sequence entry}.
+\end{thebibliography}
+\noindent\small\textcopyright\ 2026 Haobo Ma and Wenlin Zhang.
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+\end{document}
