@@ -1,0 +1,27 @@
+{
+  "duration": "1:04",
+  "id": "001-restoring-block",
+  "lean": [],
+  "narration": {
+    "engine": "Kokoro-82M v1.0 (onnx)",
+    "language": "en",
+    "voice": "af_heart"
+  },
+  "outputs": {
+    "cover": "bala-machine3626-exact-halting-time_001_cover.jpg",
+    "narrated_720p": "bala-machine3626-exact-halting-time_001_720p_narrated.mp4"
+  },
+  "publication_basis": "pinned",
+  "released": "2026-11-23",
+  "resolution": "1280x720@30",
+  "style": "trureturing cyberpunk · deterministic canvas",
+  "subject": "https://doi.org/10.5281/zenodo.24405774",
+  "subtitles": [
+    "zh",
+    "en"
+  ],
+  "summary": "A five-step run shows how one temporary bit forces two restoring trips. A divisor sum counts the same powers of two.",
+  "summary_zh": "从五步的运行看一个临时位如何触发两趟恢复过程，再用除数和数出同样的二的幂。",
+  "title": "Why the Machine Runs the Same Block Twice",
+  "title_zh": "同一段走两遍"
+}

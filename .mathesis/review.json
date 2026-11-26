@@ -1,0 +1,70 @@
+{
+  "results": {
+    "rem-exact-time": {
+      "comparison_verdict": "variant",
+      "compared_public_gid": "D5/S0/Computability/BinaryMachine/Machine3626.result",
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Theorem 1 (§1): positive input and a boundary trace equated to the exact signed sum are public; the binary-start shape supplies the valuation length via the other public trace. The result declaration itself does not state the valuation or expose the restored final tape. Zero is excluded by both; its nontermination is separate."
+    },
+    "lem-restoring-block": {
+      "comparison_verdict": "special case",
+      "compared_public_gid": "D5/S0/Computability/BinaryMachine/Machine3626.block_first_crossing",
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Lemma 1 (§2): the public theorem has arbitrary k and higher bits, but only an empty right list and endpoint none. The internal block_trace uses arbitrary right context and the right endpoint, but is private and the halting case erases the final write. The manuscript includes both right-context cases, first local crossing, restoration, and the recurrence T₀=1, Tₖ₊₁=2Tₖ+3."
+    },
+    "rem-comparison-machines": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 1 (§2): both positive-input traces, restoration and exact lengths for different transition rules (3589 and 3197) are not stated by the inspected 3626 module; the odd/even cases of 3197 use the machine sequence offset n."
+    },
+    "rem-distribution": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 2 (§2): individual trace lengths do not state the N≥1 counts for k≥0, the floor summatory identity, or the fixed-length ℓ≥1 mean and maximum. No matching aggregate statement in inspected scope."
+    },
+    "rem-weights": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 3 (§3): arbitrary complex weights, every r≥1 and n≥1 including v=0; the private prime-power mass calculation supports the mechanism, but no public weighted equality was found in inspected scope."
+    },
+    "rem-mixed": {
+      "comparison_verdict": "variant",
+      "compared_public_gid": "D5/S0/Computability/BinaryMachine/Machine3626.result",
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 4 (§3): the public trace/divisor statement uses only r=2,s=1 with the totient weight and does not state the two-parameter sum, s=0 boundary, or cancellation for every k≥1."
+    },
+    "rem-signed": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 5 (§3): both signed/unsigned transforms for all r≥1 and the two parity formulas with offset n−1 are not declarations in the inspected module. The Möbius factor used inside its mass is not the outer weight in these transforms."
+    },
+    "rem-companions": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 6 (§3): B/D recurrences at even and odd inputs, B series and base-four digit sum, D floor/digit/asymptotic/prefix formulas and the product at S(0)=0 have no exact statement in the inspected scope."
+    },
+    "rem-series": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 7 (§3): no exact public claim in the inspected scope for real a≥0 and the ordinary/Dirichlet series with their separate absolute-convergence domains, or the a=0 link to machine 3589."
+    },
+    "rem-ratio": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 8 (§3): factoring divisors at any prime with real s≥0 is not the Möbius cost equality. No exact match found in inspected scope for integrality or the square ratio value set, palindromic prefixes and prefix sums for h≥1."
+    },
+    "rem-cubic": {
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "scope": "Corollary 9 (§3): p=2,s=3 cubic ratio plus the m(d)·φ(d)^3 weighted identity (excluding d=1 inside the sum) is not the square-mass first-moment cost. No exact match found in inspected scope."
+    }
+  }
+}

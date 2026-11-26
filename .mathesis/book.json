@@ -1,0 +1,94 @@
+{
+  "book": "bala-machine3626-exact-halting-time",
+  "pending_claims": [],
+  "results": {
+    "rem-exact-time": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s1",
+      "gids": [],
+      "comparison_verdict": "variant",
+      "compared_public_gid": "D5/S0/Computability/BinaryMachine/Machine3626.result",
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "lem-restoring-block": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s2",
+      "gids": [],
+      "comparison_verdict": "special case",
+      "compared_public_gid": "D5/S0/Computability/BinaryMachine/Machine3626.block_first_crossing",
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8",
+      "formalization_request": {
+        "label": "Lemma 1 — Restoring first crossing",
+        "url": "https://github.com/the-omega-institute/trureturing-requests/issues/530"
+      }
+    },
+    "rem-comparison-machines": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s3",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-distribution": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s4",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-weights": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s5",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-mixed": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s6",
+      "gids": [],
+      "comparison_verdict": "variant",
+      "compared_public_gid": "D5/S0/Computability/BinaryMachine/Machine3626.result",
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-signed": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s7",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-companions": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s8",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-series": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s9",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-ratio": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s10",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    },
+    "rem-cubic": {
+      "claim": "collected:bala-machine3626-exact-halting-time:3:s11",
+      "gids": [],
+      "comparison_verdict": "none",
+      "compared_public_gid": null,
+      "comparison_commit": "8a24ea4e79de962725aab9d9b49cc605fcc211d8"
+    }
+  },
+  "stage": "complete",
+  "titles": {
+    "en": "A restoring and divisor-sum proof of Bala's machine-3626 conjecture of 11 September 2026, OEIS A393210, Comments, revision 18: extending Sequence Machine (2026) and Wolfram (2026)",
+    "zh": "A restoring and divisor-sum proof of Bala's machine-3626 conjecture of 11 September 2026, OEIS A393210, Comments, revision 18: extending Sequence Machine (2026) and Wolfram (2026)"
+  },
+  "version": 3,
+  "work": "bala-machine3626-exact-halting-time"
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "mathesis.collection-history.v1",
+  "sha256": {
+    "versions/v3/.mathesis/generated.json": "cbcd54105912f07df70276ea32a7476c45adfc505ce9514f0e7f724fed9e92c6",
+    "versions/v3/CHANGELOG.md": "98a855b54cb8e385aa13952812b9f76a331603e597b31602e6fdf2dfbdad7d28",
+    "versions/v3/CITATION.cff": "0265fd7767ecf2a3fa1abc568ad346a167783a4822b7f893346cad9a5def672a",
+    "versions/v3/CONTRIBUTING.md": "fafd66e63160b2a88f433af56d2af2b0f7bf6ed2fd417d46b54446ce07c627ff",
+    "versions/v3/LICENSES/CC-BY-4.0.txt": "58230517b7895aa219ff46a6ed63e67057a1582fb9ea054b16728a8c13525650",
+    "versions/v3/README.md": "2922f3f9cd488b7ee49f3f8bd21b6b134132c5a86699953fba53b8a942248936",
+    "versions/v3/formalization/nodes.json": "3a105dedb4400586e3b8c573eaf4cc4f01c6d8ce7627bb2f5b07e36efeafeb1f",
+    "versions/v3/manuscript/machine3626-note-v3/README.md": "d18bd87ae4d106403f24c8f2d810411840e908354d7b7d5ea75ddc455f900e56",
+    "versions/v3/manuscript/machine3626-note-v3/b393210.txt": "fbc20f8fff2a22cf3829cf1ce987555de81e840e81b24ee464f72b3079d74062",
+    "versions/v3/manuscript/machine3626-note-v3/finite-checks.json": "1859df60e10abc268a6222bdae85aca088e34077b00e64954709fbbf9108c2ff",
+    "versions/v3/manuscript/machine3626-note-v3/metadata.json": "d40a6e942539eb631c11587170f226ab2b4e921625b8ab23917b10fc58d1d8a4",
+    "versions/v3/manuscript/machine3626-note-v3/note.tex": "435042adead473b2f7cb4b437f17ef349013c6d3b8baebaf571362554e5872bb",
+    "versions/v3/manuscript/machine3626-note-v3/reference-prefixes.json": "8428b3a6eedfb98df6ed7e0e9303179569456212a523dc107729a2d1753757c8",
+    "versions/v3/manuscript/machine3626-note-v3/verify.py": "6391f7a7be4df0767a5f0897d51b2efa507d41ab727a08b25ce2756ff3cde448",
+    "versions/v3/paper.json": "41209b820e21b0cc0b4ce30533e963d48203204f2a771eb3acf1f50a2ef703dc",
+    "versions/v3/paper.pdf": "ea91793d00652ea40d70ec9cb8e5f8bb2640881792c3accb151385b72cfc9408",
+    "versions/v3/source.archive": "f7c3c25dcb902117f5f1538923c9897ec8e6c4da673cb78415bce047aec30427"
+  },
+  "source_commit": "d5dc2ea5173303a8c3bde3d936273d7e4ebc6109",
+  "work": "bala-machine3626-exact-halting-time"
+}

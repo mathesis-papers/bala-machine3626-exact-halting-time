@@ -1,0 +1,22 @@
+{
+  "voice": "af_heart",
+  "speed": 1.0,
+  "say": {"3626": "thirty-six twenty-six"},
+  "scenes": [
+    {"id":"open", "name":"The clock, not the output", "lead":0.6, "tail":0.5, "lines":[
+      ["Six and twelve go into the same machine. Both come back unchanged.", "6 和 12 输入同一台机器，两个数都原样留下。"],
+      ["But six takes five steps, while twelve takes thirteen. The extra zero is the clue.", "但 6 要走五步，12 要走十三步。多出来的那个零就是线索。"]]},
+    {"id":"trace", "name":"Five steps on the tape", "lead":0.3, "tail":0.5, "lines":[
+      ["Start at the right edge of six. Pass its zero and turn at the first one.", "从 6 的最右端起步。经过零，在遇到第一个 1 时折返。"],
+      ["Back at the edge, mark the zero with a one and make the same trip again.", "回到边缘，把零暂时标记成 1，再走一遍。"],
+      ["On the second return, erase the mark and exit. That last move counts.", "第二次返回时擦去标记并出界。最后这一步也计数。"]]},
+    {"id":"double", "name":"The restoring recurrence", "lead":0.3, "tail":0.5, "lines":[
+      ["Each extra zero makes the machine run the smaller block twice: once before the mark, once after.", "每多一个零，机器就把小一阶的区块走两遍：标记前一次，标记后一次。"],
+      ["Add the three single moves. The times are one, five, thirteen, twenty-nine. Add three, and they double each time.", "再加三个单步，步数是 1、5、13、29。每项加三，就正好逐次翻倍。"]]},
+    {"id":"divisors", "name":"The same answer from divisors", "lead":0.3, "tail":0.5, "lines":[
+      ["Bala's signed divisor sum cancels away everything except powers of two. For twelve, only one, two, and four survive.", "Bala 的带符号除数和会抵消二的幂以外的项。对 12，仅 1、2、4 留下。"],
+      ["Their contributions are one, four, and eight. That is thirteen, the same as the machine.", "三项分别贡献 1、4、8，总和十三，恰和机器步数相同。"]]},
+    {"id":"close", "name":"One feature controls both", "lead":0.3, "tail":1, "lines":[
+      ["For every positive input, both calculations depend only on its trailing zeros. Zero itself has no first one, and never exits.", "对每个正输入，两种计算都只取决于末尾零的个数。零本身没有第一个 1，所以永不出界。"]]}
+  ]
+}

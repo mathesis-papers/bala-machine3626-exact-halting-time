@@ -34,3 +34,46 @@ Haobo Ma, Wenlin Zhang (2026). A restoring and divisor-sum proof of Bala's machi
 ## Contributions
 
 Original authors are listed above. Formalization contributors and attribution are retained in `formalization/nodes.json`; repository pull requests do not confer verification or credit. Submit formalization attempts through the Mathesis attempt path described in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+<!-- Mathesis generated repository guide; refresh with paper.py front. -->
+
+## Reading and materials
+
+[Paper site](https://papers.trureturing.org/bala-machine3626-exact-halting-time/) · [Frozen PDF](paper.pdf) · [Citation](CITATION.cff)
+
+[中文阅读](https://papers.trureturing.org/bala-machine3626-exact-halting-time/bala-machine3626-exact-halting-time/zh/) · [Read in English](https://papers.trureturing.org/bala-machine3626-exact-halting-time/bala-machine3626-exact-halting-time/en/)
+
+[Slides](https://papers.trureturing.org/bala-machine3626-exact-halting-time/bala-machine3626-exact-halting-time/slides/) ([sources](books/bala-machine3626-exact-halting-time/slides/)) · [Videos](https://papers.trureturing.org/bala-machine3626-exact-halting-time/bala-machine3626-exact-halting-time/films/) ([sources](books/bala-machine3626-exact-halting-time/films/))
+
+These are publication routes; available built materials are inventoried in [mathesis-materials.json](https://papers.trureturing.org/bala-machine3626-exact-halting-time/mathesis-materials.json).
+
+## Book and formalization
+
+Catalog formalization status above is separate from the statement comparisons below. A nearby declaration does not verify the complete written result.
+
+| Book result | Comparison with formal base | Compared declaration |
+|---|---|---|
+| `rem-exact-time` | variant | `D5/S0/Computability/BinaryMachine/Machine3626.result` |
+| `lem-restoring-block` | special case | `D5/S0/Computability/BinaryMachine/Machine3626.block_first_crossing` |
+| `rem-comparison-machines` | none | — |
+| `rem-distribution` | none | — |
+| `rem-weights` | none | — |
+| `rem-mixed` | variant | `D5/S0/Computability/BinaryMachine/Machine3626.result` |
+| `rem-signed` | none | — |
+| `rem-companions` | none | — |
+| `rem-series` | none | — |
+| `rem-ratio` | none | — |
+| `rem-cubic` | none | — |
+
+Book stage: **complete**; 0 pending claims. [Statement comparisons](.mathesis/review.json).
+
+## Repository map
+
+| Zone | Location |
+|---|---|
+| Paper record | `paper.json`, `CITATION.cff`, `paper.pdf`, `manuscript/`, `formalization/nodes.json`, `LICENSES/`, `.mathesis/` |
+| Content | `books/bala-machine3626-exact-halting-time/`: Chinese/English text, figures, visualizations, videos, slides, assets |
+| Machinery | Upstream and layer managed paths; update with `tbook template update` |
+| Repository front | This README, changelog, contribution guide, licence, project/site/pin configuration, `template.d/` |
+
+See [the enforced layout](docs/layer-mathesis/LAYOUT.md). Preparation run records and built outputs stay outside the committed tree.

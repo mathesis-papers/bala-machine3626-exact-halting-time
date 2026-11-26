@@ -1,0 +1,87 @@
+\documentclass{beamer}
+\input{tbook-deck}
+\title{Bala's machine 3626: restoring traces and divisor sums}
+\author{Haobo Ma \and Wenlin Zhang}
+\institute{ChronoAI Pte Ltd, Singapore\\National University of Singapore (Wenlin Zhang)}
+\date{Version 3, 22 November 2026}
+\begin{document}
+% Manuscript: Title and abstract
+\begin{frame}
+  \titlepage
+  \note{These materials explain the accepted paper by Haobo Ma and Wenlin Zhang. The machine is an identity computer: focus on the cost of returning the tape to its initial contents, not on computing a different integer.}
+\end{frame}
+% Manuscript: Sections 1--3
+\begin{frame}{Outline}
+  \tableofcontents
+  \note{First read the transitions and watch one short trace. Then explain the doubling step, derive the independent divisor sum, and distinguish the mathematical result from the exact scope of the public Lean declarations.}
+\end{frame}
+\section{A machine that gives back its input}
+% Manuscript: Section 1, transition table
+\begin{frame}{The exit counts as a step}
+  Cell $j$ stores the bit worth $2^j$; larger $j$ is farther left.
+  Start in $A$ at cell $0$. Moving right from cell $0$ halts.
+  \[
+    \begin{array}{c|cc}
+       &0&1\\\hline
+      A&(0,L,A)&(1,R,B)\\
+      B&(1,L,A)&(0,R,B)
+    \end{array}
+  \]
+  Example: $6=(110)_2$, read from the head as $0,1,1$.
+  \[ A0\to A1\to B0\to A1\to B1\to \text{exit}. \]
+  \note{Explain that each item before the exit is the state and bit being read, not the whole tape. The third step changes cell zero to one; the fifth writes zero again before leaving. The farther one is never scanned. The all-zero input never finds a one and lies outside the positive-input theorem.}
+\end{frame}
+\section{Why an extra zero doubles the work}
+% Manuscript: Section 2, Lemma 1
+\begin{frame}{A first crossing with the tape restored}
+  \begin{bookresult}{lem-restoring-block}
+  For $u_k=0^k1w$, start in state $A$ at its first cell, with arbitrary right context. The first move past that cell to the right restores the tape and takes $T_k=4\cdot2^k-3$ steps.
+  \end{bookresult}
+  \[
+    T_{k+1}=\underbrace{1+T_k}_{\text{enter and return}}
+     +\underbrace{1+T_k}_{\text{mark and repeat}}
+     +\underbrace{1}_{\text{erase and cross}}.
+  \]
+  \note{At $k=0$, rule $A1$ crosses at once. For $0u_k$, two subtraces restore $u_k$ first with a saved zero and then with a saved one on their right. Each returns exactly to that saved cell in $B$. The final rule $B1$ changes the saved one back to zero and crosses the original start. If the original right context is $br'$, the final state is $B$ on $b$; if empty, the same move halts. Adding three to the recurrence diagonalizes it into doubling.}
+\end{frame}
+\section{The divisor calculation}
+% Manuscript: Sections 1 and 3, Theorem 1 and equation (support)
+\begin{frame}{Why only the powers of two survive}
+  For $n=2^v q$ with $q$ odd, put
+  \[
+  m(n)=\sum_{e\mid n}(-1)^{e+1}\mu(e),\qquad
+  C(n)=\sum_{d\mid n}m(d)^2\varphi(d).
+  \]
+  Pair $e$ with $2e$ when $v>0$; the odd part yields $\prod_{p\mid q}(1-1)$.
+  \[
+    m(1)=1,\quad m(2^j)=2\;(j\ge1),\quad m(n)=0\text{ otherwise}.
+  \]
+  \[C(n)=1+4\sum_{j=1}^{v}2^{j-1}=4\cdot2^v-3=H(n).\]
+  \note{The Möbius sign reverses from an odd divisor $e$ to $2e$, and so does $(-1)^{e+1}$. Divisors with a square factor of two make no contribution. For odd $n$ the unsigned sum over odd divisors has the same product cancellation. At $n=12$, compare $1+4+8=13$ with the block of two zeros. In particular $m(4)=2$, not $4$.}
+\end{frame}
+% Manuscript: Section 2, timing distribution
+\begin{frame}{A linear mean and an exponential maximum}
+  Among $1,\ldots,N$, exactly
+  \[\left\lfloor N/2^k\right\rfloor-\left\lfloor N/2^{k+1}\right\rfloor\]
+  inputs have time $4\cdot2^k-3$. At binary length $\ell\ge1$:
+  \begin{itemize}
+     \item Mean: $2\ell-1$.
+     \item Maximum: $2^{\ell+1}-3$, at $n=2^{\ell-1}$ only.
+  \end{itemize}
+  \note{The count subtracts the inputs with an extra factor of two. The maximum is Wolfram's earlier worst-case formula. A single slow run is not representative of a whole fixed-length block. The method does not apply unchanged to machines 3589 and 3197, whose times are $2v+1$ and $2-(-1)^n$.}
+\end{frame}
+% Manuscript: Section 4 and bibliography
+\begin{frame}{What is proved, and where}
+  \begin{itemize}
+  \item Manuscript: restoration, exact pointwise time, and the divisor identity.
+  \item Pinned Lean: positive-input boundary traces, including the equality of their length and the divisor sum. The public endpoint does not retain the final tape.
+  \item Related work: Peter Bala (A393210 and A069517), Sequence Machine (pointwise XOR), Stephen Wolfram (worst-case analysis).
+  \end{itemize}
+  \href{https://doi.org/10.5281/zenodo.24405774}{Ma and Zhang, version 3} \qquad
+  \href{https://github.com/the-omega-institute/trureturing-requests/issues/530}{Restoring-lemma request}
+  \note{Distinguish an established manuscript proof from the narrower public Lean declarations. The exact pointwise expression was already recorded on April 18, 2026; the restoring proof connects it to the divisor-sum conjecture from September 11, 2026. The request reuses the private trace proof; it does not seek to reprove the already formalized divisor-sum equality.}
+\end{frame}
+\appendix
+% Manuscript: Section 4, linked evidence for the displayed lemma
+\FormalVerification
+\end{document}
